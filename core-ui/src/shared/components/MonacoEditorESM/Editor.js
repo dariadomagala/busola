@@ -179,7 +179,7 @@ export function Editor({
     <div
       className="resource-form__wrapper"
       {...rest}
-      style={{ height, minHeight: height }}
+      style={{ minHeight: height }}
     >
       {loading ? (
         <div className="resource-form__overlay">

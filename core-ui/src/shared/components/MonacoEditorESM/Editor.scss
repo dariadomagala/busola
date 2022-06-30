@@ -1,9 +1,7 @@
 .resource-form__wrapper {
-  display: flex;
-  flex-direction: column;
-  height: calc(100% - 21px - 36px);
+  height: 100%;
+  overflow: auto;
   min-height: 350px;
-  position: relative;
 }
 .resource-form__overlay {
   position: absolute;
