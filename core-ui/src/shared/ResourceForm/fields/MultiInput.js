@@ -112,7 +112,7 @@ export function MultiInput({
   const listClasses = classnames({
     'text-array-input__list': true,
     'fd-col': true,
-    'fd-col-md--7': !fullWidth,
+    'fd-col-md--8': !fullWidth,
     'fd-col-md--12': fullWidth,
   });
 
@@ -141,30 +141,32 @@ export function MultiInput({
   }, [inputs, internalValue]); // eslint-disable-line react-hooks/exhaustive-deps
 
   const inputComponents = internalValue.map((entry, index) =>
-    inputs.map((input, inputIndex) =>
-      input({
-        index: (index + 1) * keys,
-        value: entry,
-        setValue: entry => setEntry(entry, index),
-        ref: refs[index]?.[inputIndex],
-        updateValue: () => updateValue(internalValue),
-        internalValue,
-        setMultiValue: setValue,
-        focus: (e, target) => {
-          if (e.key === 'Enter') {
-            if (typeof target === 'undefined') {
+    inputs.map((input, inputIndex) => (
+      <div className="fd-col-md--6">
+        {input({
+          index: (index + 1) * keys,
+          value: entry,
+          setValue: entry => setEntry(entry, index),
+          ref: refs[index]?.[inputIndex],
+          updateValue: () => updateValue(internalValue),
+          internalValue,
+          setMultiValue: setValue,
+          focus: (e, target) => {
+            if (e.key === 'Enter') {
+              if (typeof target === 'undefined') {
+                focus(refs[index + 1]?.[0]);
+              } else {
+                focus(refs[index][target]);
+              }
+            } else if (e.key === 'ArrowDown') {
               focus(refs[index + 1]?.[0]);
-            } else {
-              focus(refs[index][target]);
+            } else if (e.key === 'ArrowUp') {
+              focus(refs[index - 1]?.[0]);
             }
-          } else if (e.key === 'ArrowDown') {
-            focus(refs[index + 1]?.[0]);
-          } else if (e.key === 'ArrowUp') {
-            focus(refs[index - 1]?.[0]);
-          }
-        },
-      }),
-    ),
+          },
+        })}
+      </div>
+    )),
   );
 
   return (
@@ -178,7 +180,7 @@ export function MultiInput({
     >
       <div className="fd-row form-field multi-input">
         {!fullWidth && (
-          <div className="fd-col fd-col-md--4 form-field__label">
+          <div className="fd-col fd-col-md--3 form-field__label">
             <ResourceForm.Label
               required={required}
               tooltipContent={tooltipContent}
@@ -190,30 +192,41 @@ export function MultiInput({
         <ul className={listClasses}>
           {internalValue.map((entry, index) => (
             <li key={index}>
-              {noEdit && !isLast(index) && (
-                <span className="readonly-value">{entry}</span>
-              )}
-              {(!noEdit || isLast(index)) &&
-                inputs.map(
-                  (input, inputIndex) => inputComponents[index][inputIndex],
+              <div className="fd-row">
+                <div className="fd-col fd-col-md--11">
+                  <div className="fd-row">
+                    {noEdit && !isLast(index) && (
+                      <span className="readonly-value">{entry}</span>
+                    )}
+                    {(!noEdit || isLast(index)) &&
+                      inputs.map(
+                        (input, inputIndex) =>
+                          inputComponents[index][inputIndex],
+                      )}
+                  </div>
+                </div>
+
+                <div className="fd-col fd-col-md--1">
+                  {!isLast(index) && (
+                    <Button
+                      disabled={readOnly}
+                      compact
+                      option="transparent"
+                      className={classnames({
+                        hidden: isEntryLocked(entry),
+                      })}
+                      glyph="delete"
+                      type="negative"
+                      onClick={() => removeValue(index)}
+                      ariaLabel={t('common.buttons.delete')}
+                    />
+                  )}
+                </div>
+
+                {isLast(index) && (
+                  <span className="new-item-action">{newItemAction}</span>
                 )}
-              {!isLast(index) && (
-                <Button
-                  disabled={readOnly}
-                  compact
-                  option="transparent"
-                  className={classnames({
-                    hidden: isEntryLocked(entry),
-                  })}
-                  glyph="delete"
-                  type="negative"
-                  onClick={() => removeValue(index)}
-                  ariaLabel={t('common.buttons.delete')}
-                />
-              )}
-              {isLast(index) && (
-                <span className="new-item-action">{newItemAction}</span>
-              )}
+              </div>
             </li>
           ))}
           {inputInfo && (

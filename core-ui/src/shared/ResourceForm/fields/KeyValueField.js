@@ -103,7 +103,6 @@ export function KeyValueField({
           }),
         ({ focus, value, setValue, updateValue, ...props }) =>
           input.value({
-            className: 'value-input',
             key: 'value',
             onKeyDown: e => focus(e),
             value: dataValue(value),
