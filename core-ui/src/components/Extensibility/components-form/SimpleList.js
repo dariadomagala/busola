@@ -67,7 +67,7 @@ export function SimpleList({
       {...props}
     >
       <div className="fd-row simple-list">
-        <div className="fd-col fd-col-md--3 fd-margin-bottom--sm simple-list__label">
+        <div className="fd-col fd-col-md--3 fd-margin-bottom--sm simple-list__label form-field__label">
           <Label
             required={schemaRequired ?? required}
             tooltipContent={tExt(tooltipContent)}

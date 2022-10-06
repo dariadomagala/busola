@@ -1,7 +1,13 @@
-.resource-form .tooltip-column {
-  text-align: right;
+.resource-form {
+  .tooltip-column {
+    text-align: right;
+    padding: 12px 0 !important;
 
-  [class*='sap-icon'] {
-    color: var(--sapButton_TextColor);
+    [class*='sap-icon'] {
+      color: var(--sapButton_TextColor);
+    }
+  }
+  .form-field__label {
+    padding: 12px 0 !important;
   }
 }
