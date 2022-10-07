@@ -206,7 +206,7 @@ export function MultiInput({
                   </div>
                 </div>
 
-                <div className="fd-col fd-col-md--1">
+                <div className="fd-col fd-col-md--1 action-button">
                   {!isLast(index) && (
                     <Button
                       disabled={readOnly}

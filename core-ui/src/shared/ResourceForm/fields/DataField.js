@@ -10,25 +10,23 @@ export function DataField({ title, ...props }) {
   const { t } = useTranslation();
 
   return (
-    <div className="fd-col fd-col-md--11">
-      <KeyValueField
-        fullWidth
-        readableFromFile
-        className="resource-form__data-field"
-        title={title || t('common.labels.data')}
-        input={{
-          value: ({ setValue, ...props }) => (
-            <FormTextarea
-              compact
-              onChange={e => setValue(e.target.value)}
-              className="value-textarea"
-              {...props}
-              onKeyDown={() => {}} // overwrites default onKeyDown that switches focus when Enter is pressed
-            />
-          ),
-        }}
-        {...props}
-      />
-    </div>
+    <KeyValueField
+      fullWidth
+      readableFromFile
+      className="resource-form__data-field"
+      title={title || t('common.labels.data')}
+      input={{
+        value: ({ setValue, ...props }) => (
+          <FormTextarea
+            compact
+            onChange={e => setValue(e.target.value)}
+            className="value-textarea"
+            {...props}
+            onKeyDown={() => {}} // overwrites default onKeyDown that switches focus when Enter is pressed
+          />
+        ),
+      }}
+      {...props}
+    />
   );
 }

@@ -1,6 +1,6 @@
 .resource-form {
   .tooltip-column {
-    text-align: right;
+    text-align: center;
     padding: 12px 0 !important;
 
     [class*='sap-icon'] {
@@ -9,5 +9,8 @@
   }
   .form-field__label {
     padding: 12px 0 !important;
+  }
+  .action-button {
+    padding: 8px 0 !important;
   }
 }
